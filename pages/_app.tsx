@@ -71,6 +71,7 @@ const App = ({ Component, pageProps }) => {
             }}
             formifyCallback={({ formConfig, createForm, createGlobalForm }) => {
               if (formConfig.id === "getGlobalDocument") {
+                //@ts-ignore this function is typed incorrectly
                 return createGlobalForm(formConfig, { layout: "fullscreen" });
               }
 
