@@ -1,3 +1,50 @@
+fragment PagesParts on Pages {
+  blocks {
+    __typename
+    ... on PagesBlocksHero {
+      tagline
+      headline
+      text
+      actions {
+        __typename
+        label
+        type
+        icon
+        link
+      }
+      image {
+        __typename
+        src
+        alt
+      }
+      color
+    }
+    ... on PagesBlocksFeatures {
+      items {
+        __typename
+        icon {
+          __typename
+          color
+          style
+          name
+        }
+        title
+        text
+      }
+      color
+    }
+    ... on PagesBlocksContent {
+      body
+      color
+    }
+    ... on PagesBlocksTestimonial {
+      quote
+      author
+      color
+    }
+  }
+}
+
 fragment PostsParts on Posts {
   _body
   title
@@ -50,51 +97,4 @@ fragment GlobalParts on Global {
 fragment AuthorsParts on Authors {
   name
   avatar
-}
-
-fragment PagesParts on Pages {
-  blocks {
-    __typename
-    ... on PagesBlocksHero {
-      tagline
-      headline
-      text
-      actions {
-        __typename
-        label
-        type
-        icon
-        link
-      }
-      image {
-        __typename
-        src
-        alt
-      }
-      color
-    }
-    ... on PagesBlocksFeatures {
-      items {
-        __typename
-        icon {
-          __typename
-          color
-          style
-          name
-        }
-        title
-        text
-      }
-      color
-    }
-    ... on PagesBlocksContent {
-      body
-      color
-    }
-    ... on PagesBlocksTestimonial {
-      quote
-      author
-      color
-    }
-  }
 }

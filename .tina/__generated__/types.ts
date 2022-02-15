@@ -67,14 +67,14 @@ export type Query = {
   getDocument: DocumentNode;
   getDocumentList: DocumentConnection;
   getDocumentFields: Scalars['JSON'];
+  getPagesDocument: PagesDocument;
+  getPagesList: PagesConnection;
   getPostsDocument: PostsDocument;
   getPostsList: PostsConnection;
   getGlobalDocument: GlobalDocument;
   getGlobalList: GlobalConnection;
   getAuthorsDocument: AuthorsDocument;
   getAuthorsList: AuthorsConnection;
-  getPagesDocument: PagesDocument;
-  getPagesList: PagesConnection;
 };
 
 
@@ -100,6 +100,20 @@ export type QueryGetDocumentListArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   filter?: InputMaybe<DocumentFilter>;
+};
+
+
+export type QueryGetPagesDocumentArgs = {
+  relativePath?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryGetPagesListArgs = {
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  filter?: InputMaybe<PagesFilter>;
 };
 
 
@@ -144,125 +158,10 @@ export type QueryGetAuthorsListArgs = {
   filter?: InputMaybe<AuthorsFilter>;
 };
 
-
-export type QueryGetPagesDocumentArgs = {
-  relativePath?: InputMaybe<Scalars['String']>;
-};
-
-
-export type QueryGetPagesListArgs = {
-  before?: InputMaybe<Scalars['String']>;
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Float']>;
-  last?: InputMaybe<Scalars['Float']>;
-  filter?: InputMaybe<PagesFilter>;
-};
-
 export type StringFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
   eq?: InputMaybe<Scalars['String']>;
   exists?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type Posts_BodyDateTimeFilter = {
-  format?: InputMaybe<StringFilter>;
-};
-
-export type RichTextFilter = {
-  startsWith?: InputMaybe<Scalars['String']>;
-  eq?: InputMaybe<Scalars['String']>;
-  exists?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type Posts_BodyBlockQuoteFilter = {
-  children?: InputMaybe<RichTextFilter>;
-  authorName?: InputMaybe<StringFilter>;
-};
-
-export type Posts_BodyNewsletterSignupFilter = {
-  children?: InputMaybe<RichTextFilter>;
-  placeholder?: InputMaybe<StringFilter>;
-  buttonText?: InputMaybe<StringFilter>;
-  disclaimer?: InputMaybe<RichTextFilter>;
-};
-
-export type Posts_BodyFilter = {
-  DateTime?: InputMaybe<Posts_BodyDateTimeFilter>;
-  BlockQuote?: InputMaybe<Posts_BodyBlockQuoteFilter>;
-  NewsletterSignup?: InputMaybe<Posts_BodyNewsletterSignupFilter>;
-};
-
-export type AuthorsFilter = {
-  name?: InputMaybe<StringFilter>;
-  avatar?: InputMaybe<StringFilter>;
-};
-
-export type PostsAuthorFilter = {
-  authors?: InputMaybe<AuthorsFilter>;
-};
-
-export type DatetimeFilter = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  eq?: InputMaybe<Scalars['String']>;
-  exists?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type ImageFilter = {
-  startsWith?: InputMaybe<Scalars['String']>;
-  eq?: InputMaybe<Scalars['String']>;
-  exists?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type PostsFilter = {
-  _body?: InputMaybe<Posts_BodyFilter>;
-  title?: InputMaybe<StringFilter>;
-  author?: InputMaybe<PostsAuthorFilter>;
-  date?: InputMaybe<DatetimeFilter>;
-  heroImg?: InputMaybe<ImageFilter>;
-  excerpt?: InputMaybe<StringFilter>;
-};
-
-export type GlobalHeaderIconFilter = {
-  color?: InputMaybe<StringFilter>;
-  style?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-};
-
-export type GlobalHeaderNavFilter = {
-  href?: InputMaybe<StringFilter>;
-  label?: InputMaybe<StringFilter>;
-};
-
-export type GlobalHeaderFilter = {
-  icon?: InputMaybe<GlobalHeaderIconFilter>;
-  color?: InputMaybe<StringFilter>;
-  nav?: InputMaybe<GlobalHeaderNavFilter>;
-};
-
-export type GlobalFooterSocialFilter = {
-  facebook?: InputMaybe<StringFilter>;
-  twitter?: InputMaybe<StringFilter>;
-  instagram?: InputMaybe<StringFilter>;
-  github?: InputMaybe<StringFilter>;
-};
-
-export type GlobalFooterFilter = {
-  color?: InputMaybe<StringFilter>;
-  social?: InputMaybe<GlobalFooterSocialFilter>;
-};
-
-export type GlobalThemeFilter = {
-  color?: InputMaybe<StringFilter>;
-  font?: InputMaybe<StringFilter>;
-  icon?: InputMaybe<StringFilter>;
-  darkMode?: InputMaybe<StringFilter>;
-};
-
-export type GlobalFilter = {
-  header?: InputMaybe<GlobalHeaderFilter>;
-  footer?: InputMaybe<GlobalFooterFilter>;
-  theme?: InputMaybe<GlobalThemeFilter>;
 };
 
 export type BooleanFilter = {
@@ -275,6 +174,12 @@ export type PagesBlocksHeroActionsFilter = {
   type?: InputMaybe<StringFilter>;
   icon?: InputMaybe<BooleanFilter>;
   link?: InputMaybe<StringFilter>;
+};
+
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type PagesBlocksHeroImageFilter = {
@@ -330,11 +235,106 @@ export type PagesFilter = {
   blocks?: InputMaybe<PagesBlocksFilter>;
 };
 
+export type Posts_BodyDateTimeFilter = {
+  format?: InputMaybe<StringFilter>;
+};
+
+export type RichTextFilter = {
+  startsWith?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type Posts_BodyBlockQuoteFilter = {
+  children?: InputMaybe<RichTextFilter>;
+  authorName?: InputMaybe<StringFilter>;
+};
+
+export type Posts_BodyNewsletterSignupFilter = {
+  children?: InputMaybe<RichTextFilter>;
+  placeholder?: InputMaybe<StringFilter>;
+  buttonText?: InputMaybe<StringFilter>;
+  disclaimer?: InputMaybe<RichTextFilter>;
+};
+
+export type Posts_BodyFilter = {
+  DateTime?: InputMaybe<Posts_BodyDateTimeFilter>;
+  BlockQuote?: InputMaybe<Posts_BodyBlockQuoteFilter>;
+  NewsletterSignup?: InputMaybe<Posts_BodyNewsletterSignupFilter>;
+};
+
+export type AuthorsFilter = {
+  name?: InputMaybe<StringFilter>;
+  avatar?: InputMaybe<StringFilter>;
+};
+
+export type PostsAuthorFilter = {
+  authors?: InputMaybe<AuthorsFilter>;
+};
+
+export type DatetimeFilter = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type PostsFilter = {
+  _body?: InputMaybe<Posts_BodyFilter>;
+  title?: InputMaybe<StringFilter>;
+  author?: InputMaybe<PostsAuthorFilter>;
+  date?: InputMaybe<DatetimeFilter>;
+  heroImg?: InputMaybe<ImageFilter>;
+  excerpt?: InputMaybe<StringFilter>;
+};
+
+export type GlobalHeaderIconFilter = {
+  color?: InputMaybe<StringFilter>;
+  style?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+export type GlobalHeaderNavFilter = {
+  href?: InputMaybe<StringFilter>;
+  label?: InputMaybe<StringFilter>;
+};
+
+export type GlobalHeaderFilter = {
+  icon?: InputMaybe<GlobalHeaderIconFilter>;
+  color?: InputMaybe<StringFilter>;
+  nav?: InputMaybe<GlobalHeaderNavFilter>;
+};
+
+export type GlobalFooterSocialFilter = {
+  facebook?: InputMaybe<StringFilter>;
+  twitter?: InputMaybe<StringFilter>;
+  instagram?: InputMaybe<StringFilter>;
+  github?: InputMaybe<StringFilter>;
+};
+
+export type GlobalFooterFilter = {
+  color?: InputMaybe<StringFilter>;
+  social?: InputMaybe<GlobalFooterSocialFilter>;
+};
+
+export type GlobalThemeFilter = {
+  color?: InputMaybe<StringFilter>;
+  font?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+  darkMode?: InputMaybe<StringFilter>;
+};
+
+export type GlobalFilter = {
+  header?: InputMaybe<GlobalHeaderFilter>;
+  footer?: InputMaybe<GlobalFooterFilter>;
+  theme?: InputMaybe<GlobalThemeFilter>;
+};
+
 export type DocumentFilter = {
+  pages?: InputMaybe<PagesFilter>;
   posts?: InputMaybe<PostsFilter>;
   global?: InputMaybe<GlobalFilter>;
   authors?: InputMaybe<AuthorsFilter>;
-  pages?: InputMaybe<PagesFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -372,7 +372,94 @@ export type CollectionDocumentsArgs = {
   filter?: InputMaybe<DocumentFilter>;
 };
 
-export type DocumentNode = PostsDocument | GlobalDocument | AuthorsDocument | PagesDocument;
+export type DocumentNode = PagesDocument | PostsDocument | GlobalDocument | AuthorsDocument;
+
+export type PagesBlocksHeroActions = {
+  __typename?: 'PagesBlocksHeroActions';
+  label?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['Boolean']>;
+  link?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksHeroImage = {
+  __typename?: 'PagesBlocksHeroImage';
+  src?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksHero = {
+  __typename?: 'PagesBlocksHero';
+  tagline?: Maybe<Scalars['String']>;
+  headline?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  actions?: Maybe<Array<Maybe<PagesBlocksHeroActions>>>;
+  image?: Maybe<PagesBlocksHeroImage>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksFeaturesItemsIcon = {
+  __typename?: 'PagesBlocksFeaturesItemsIcon';
+  color?: Maybe<Scalars['String']>;
+  style?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksFeaturesItems = {
+  __typename?: 'PagesBlocksFeaturesItems';
+  icon?: Maybe<PagesBlocksFeaturesItemsIcon>;
+  title?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksFeatures = {
+  __typename?: 'PagesBlocksFeatures';
+  items?: Maybe<Array<Maybe<PagesBlocksFeaturesItems>>>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksContent = {
+  __typename?: 'PagesBlocksContent';
+  body?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocksTestimonial = {
+  __typename?: 'PagesBlocksTestimonial';
+  quote?: Maybe<Scalars['String']>;
+  author?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export type PagesBlocks = PagesBlocksHero | PagesBlocksFeatures | PagesBlocksContent | PagesBlocksTestimonial;
+
+export type Pages = {
+  __typename?: 'Pages';
+  blocks?: Maybe<Array<Maybe<PagesBlocks>>>;
+};
+
+export type PagesDocument = Node & Document & {
+  __typename?: 'PagesDocument';
+  id: Scalars['ID'];
+  sys: SystemInfo;
+  data: Pages;
+  form: Scalars['JSON'];
+  values: Scalars['JSON'];
+  dataJSON: Scalars['JSON'];
+};
+
+export type PagesConnectionEdges = {
+  __typename?: 'PagesConnectionEdges';
+  cursor?: Maybe<Scalars['String']>;
+  node?: Maybe<PagesDocument>;
+};
+
+export type PagesConnection = Connection & {
+  __typename?: 'PagesConnection';
+  pageInfo?: Maybe<PageInfo>;
+  totalCount: Scalars['Float'];
+  edges?: Maybe<Array<Maybe<PagesConnectionEdges>>>;
+};
 
 export type PostsAuthorDocument = AuthorsDocument;
 
@@ -510,106 +597,19 @@ export type AuthorsConnection = Connection & {
   edges?: Maybe<Array<Maybe<AuthorsConnectionEdges>>>;
 };
 
-export type PagesBlocksHeroActions = {
-  __typename?: 'PagesBlocksHeroActions';
-  label?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['Boolean']>;
-  link?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksHeroImage = {
-  __typename?: 'PagesBlocksHeroImage';
-  src?: Maybe<Scalars['String']>;
-  alt?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksHero = {
-  __typename?: 'PagesBlocksHero';
-  tagline?: Maybe<Scalars['String']>;
-  headline?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  actions?: Maybe<Array<Maybe<PagesBlocksHeroActions>>>;
-  image?: Maybe<PagesBlocksHeroImage>;
-  color?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksFeaturesItemsIcon = {
-  __typename?: 'PagesBlocksFeaturesItemsIcon';
-  color?: Maybe<Scalars['String']>;
-  style?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksFeaturesItems = {
-  __typename?: 'PagesBlocksFeaturesItems';
-  icon?: Maybe<PagesBlocksFeaturesItemsIcon>;
-  title?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksFeatures = {
-  __typename?: 'PagesBlocksFeatures';
-  items?: Maybe<Array<Maybe<PagesBlocksFeaturesItems>>>;
-  color?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksContent = {
-  __typename?: 'PagesBlocksContent';
-  body?: Maybe<Scalars['String']>;
-  color?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocksTestimonial = {
-  __typename?: 'PagesBlocksTestimonial';
-  quote?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  color?: Maybe<Scalars['String']>;
-};
-
-export type PagesBlocks = PagesBlocksHero | PagesBlocksFeatures | PagesBlocksContent | PagesBlocksTestimonial;
-
-export type Pages = {
-  __typename?: 'Pages';
-  blocks?: Maybe<Array<Maybe<PagesBlocks>>>;
-};
-
-export type PagesDocument = Node & Document & {
-  __typename?: 'PagesDocument';
-  id: Scalars['ID'];
-  sys: SystemInfo;
-  data: Pages;
-  form: Scalars['JSON'];
-  values: Scalars['JSON'];
-  dataJSON: Scalars['JSON'];
-};
-
-export type PagesConnectionEdges = {
-  __typename?: 'PagesConnectionEdges';
-  cursor?: Maybe<Scalars['String']>;
-  node?: Maybe<PagesDocument>;
-};
-
-export type PagesConnection = Connection & {
-  __typename?: 'PagesConnection';
-  pageInfo?: Maybe<PageInfo>;
-  totalCount: Scalars['Float'];
-  edges?: Maybe<Array<Maybe<PagesConnectionEdges>>>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
   updateDocument: DocumentNode;
   createDocument: DocumentNode;
+  updatePagesDocument: PagesDocument;
+  createPagesDocument: PagesDocument;
   updatePostsDocument: PostsDocument;
   createPostsDocument: PostsDocument;
   updateGlobalDocument: GlobalDocument;
   createGlobalDocument: GlobalDocument;
   updateAuthorsDocument: AuthorsDocument;
   createAuthorsDocument: AuthorsDocument;
-  updatePagesDocument: PagesDocument;
-  createPagesDocument: PagesDocument;
 };
 
 
@@ -631,6 +631,18 @@ export type MutationCreateDocumentArgs = {
   collection?: InputMaybe<Scalars['String']>;
   relativePath: Scalars['String'];
   params: DocumentMutation;
+};
+
+
+export type MutationUpdatePagesDocumentArgs = {
+  relativePath: Scalars['String'];
+  params: PagesMutation;
+};
+
+
+export type MutationCreatePagesDocumentArgs = {
+  relativePath: Scalars['String'];
+  params: PagesMutation;
 };
 
 
@@ -669,79 +681,11 @@ export type MutationCreateAuthorsDocumentArgs = {
   params: AuthorsMutation;
 };
 
-
-export type MutationUpdatePagesDocumentArgs = {
-  relativePath: Scalars['String'];
-  params: PagesMutation;
-};
-
-
-export type MutationCreatePagesDocumentArgs = {
-  relativePath: Scalars['String'];
-  params: PagesMutation;
-};
-
 export type DocumentMutation = {
+  pages?: InputMaybe<PagesMutation>;
   posts?: InputMaybe<PostsMutation>;
   global?: InputMaybe<GlobalMutation>;
   authors?: InputMaybe<AuthorsMutation>;
-  pages?: InputMaybe<PagesMutation>;
-};
-
-export type PostsMutation = {
-  _body?: InputMaybe<Scalars['JSON']>;
-  title?: InputMaybe<Scalars['String']>;
-  author?: InputMaybe<Scalars['String']>;
-  date?: InputMaybe<Scalars['String']>;
-  heroImg?: InputMaybe<Scalars['String']>;
-  excerpt?: InputMaybe<Scalars['String']>;
-};
-
-export type GlobalHeaderIconMutation = {
-  color?: InputMaybe<Scalars['String']>;
-  style?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type GlobalHeaderNavMutation = {
-  href?: InputMaybe<Scalars['String']>;
-  label?: InputMaybe<Scalars['String']>;
-};
-
-export type GlobalHeaderMutation = {
-  icon?: InputMaybe<GlobalHeaderIconMutation>;
-  color?: InputMaybe<Scalars['String']>;
-  nav?: InputMaybe<Array<InputMaybe<GlobalHeaderNavMutation>>>;
-};
-
-export type GlobalFooterSocialMutation = {
-  facebook?: InputMaybe<Scalars['String']>;
-  twitter?: InputMaybe<Scalars['String']>;
-  instagram?: InputMaybe<Scalars['String']>;
-  github?: InputMaybe<Scalars['String']>;
-};
-
-export type GlobalFooterMutation = {
-  color?: InputMaybe<Scalars['String']>;
-  social?: InputMaybe<GlobalFooterSocialMutation>;
-};
-
-export type GlobalThemeMutation = {
-  color?: InputMaybe<Scalars['String']>;
-  font?: InputMaybe<Scalars['String']>;
-  icon?: InputMaybe<Scalars['String']>;
-  darkMode?: InputMaybe<Scalars['String']>;
-};
-
-export type GlobalMutation = {
-  header?: InputMaybe<GlobalHeaderMutation>;
-  footer?: InputMaybe<GlobalFooterMutation>;
-  theme?: InputMaybe<GlobalThemeMutation>;
-};
-
-export type AuthorsMutation = {
-  name?: InputMaybe<Scalars['String']>;
-  avatar?: InputMaybe<Scalars['String']>;
 };
 
 export type PagesBlocksHeroActionsMutation = {
@@ -804,6 +748,62 @@ export type PagesMutation = {
   blocks?: InputMaybe<Array<InputMaybe<PagesBlocksMutation>>>;
 };
 
+export type PostsMutation = {
+  _body?: InputMaybe<Scalars['JSON']>;
+  title?: InputMaybe<Scalars['String']>;
+  author?: InputMaybe<Scalars['String']>;
+  date?: InputMaybe<Scalars['String']>;
+  heroImg?: InputMaybe<Scalars['String']>;
+  excerpt?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalHeaderIconMutation = {
+  color?: InputMaybe<Scalars['String']>;
+  style?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalHeaderNavMutation = {
+  href?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalHeaderMutation = {
+  icon?: InputMaybe<GlobalHeaderIconMutation>;
+  color?: InputMaybe<Scalars['String']>;
+  nav?: InputMaybe<Array<InputMaybe<GlobalHeaderNavMutation>>>;
+};
+
+export type GlobalFooterSocialMutation = {
+  facebook?: InputMaybe<Scalars['String']>;
+  twitter?: InputMaybe<Scalars['String']>;
+  instagram?: InputMaybe<Scalars['String']>;
+  github?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalFooterMutation = {
+  color?: InputMaybe<Scalars['String']>;
+  social?: InputMaybe<GlobalFooterSocialMutation>;
+};
+
+export type GlobalThemeMutation = {
+  color?: InputMaybe<Scalars['String']>;
+  font?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  darkMode?: InputMaybe<Scalars['String']>;
+};
+
+export type GlobalMutation = {
+  header?: InputMaybe<GlobalHeaderMutation>;
+  footer?: InputMaybe<GlobalFooterMutation>;
+  theme?: InputMaybe<GlobalThemeMutation>;
+};
+
+export type AuthorsMutation = {
+  name?: InputMaybe<Scalars['String']>;
+  avatar?: InputMaybe<Scalars['String']>;
+};
+
 export type LayoutQueryFragmentFragment = { __typename?: 'Query', getGlobalDocument: { __typename?: 'GlobalDocument', data: { __typename?: 'Global', header?: { __typename?: 'GlobalHeader', color?: string | null, icon?: { __typename?: 'GlobalHeaderIcon', name?: string | null, color?: string | null, style?: string | null } | null, nav?: Array<{ __typename?: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename?: 'GlobalFooter', color?: string | null, social?: { __typename?: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename?: 'GlobalTheme', color?: string | null, icon?: string | null, font?: string | null, darkMode?: string | null } | null } } };
 
 export type PageQueryQueryVariables = Exact<{ [key: string]: never; }>;
@@ -825,13 +825,25 @@ export type BlogPostQueryQueryVariables = Exact<{
 
 export type BlogPostQueryQuery = { __typename?: 'Query', getPostsDocument: { __typename?: 'PostsDocument', data: { __typename?: 'Posts', _body?: any | null, title?: string | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string, data: { __typename?: 'Authors', name?: string | null, avatar?: string | null } } | null } }, getGlobalDocument: { __typename?: 'GlobalDocument', data: { __typename?: 'Global', header?: { __typename?: 'GlobalHeader', color?: string | null, icon?: { __typename?: 'GlobalHeaderIcon', name?: string | null, color?: string | null, style?: string | null } | null, nav?: Array<{ __typename?: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename?: 'GlobalFooter', color?: string | null, social?: { __typename?: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename?: 'GlobalTheme', color?: string | null, icon?: string | null, font?: string | null, darkMode?: string | null } | null } } };
 
+export type PagesPartsFragment = { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null };
+
 export type PostsPartsFragment = { __typename?: 'Posts', _body?: any | null, title?: string | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null };
 
 export type GlobalPartsFragment = { __typename?: 'Global', header?: { __typename: 'GlobalHeader', color?: string | null, icon?: { __typename: 'GlobalHeaderIcon', color?: string | null, style?: string | null, name?: string | null } | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', color?: string | null, social?: { __typename: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename: 'GlobalTheme', color?: string | null, font?: string | null, icon?: string | null, darkMode?: string | null } | null };
 
 export type AuthorsPartsFragment = { __typename?: 'Authors', name?: string | null, avatar?: string | null };
 
-export type PagesPartsFragment = { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null };
+export type GetPagesDocumentQueryVariables = Exact<{
+  relativePath: Scalars['String'];
+}>;
+
+
+export type GetPagesDocumentQuery = { __typename?: 'Query', getPagesDocument: { __typename?: 'PagesDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null } } };
+
+export type GetPagesListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPagesListQuery = { __typename?: 'Query', getPagesList: { __typename?: 'PagesConnection', totalCount: number, edges?: Array<{ __typename?: 'PagesConnectionEdges', node?: { __typename?: 'PagesDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null } } | null } | null> | null } };
 
 export type GetPostsDocumentQueryVariables = Exact<{
   relativePath: Scalars['String'];
@@ -869,18 +881,6 @@ export type GetAuthorsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAuthorsListQuery = { __typename?: 'Query', getAuthorsList: { __typename?: 'AuthorsConnection', totalCount: number, edges?: Array<{ __typename?: 'AuthorsConnectionEdges', node?: { __typename?: 'AuthorsDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Authors', name?: string | null, avatar?: string | null } } | null } | null> | null } };
 
-export type GetPagesDocumentQueryVariables = Exact<{
-  relativePath: Scalars['String'];
-}>;
-
-
-export type GetPagesDocumentQuery = { __typename?: 'Query', getPagesDocument: { __typename?: 'PagesDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null } } };
-
-export type GetPagesListQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetPagesListQuery = { __typename?: 'Query', getPagesList: { __typename?: 'PagesConnection', totalCount: number, edges?: Array<{ __typename?: 'PagesConnectionEdges', node?: { __typename?: 'PagesDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null } } | null } | null> | null } };
-
 export const LayoutQueryFragmentFragmentDoc = gql`
     fragment LayoutQueryFragment on Query {
   getGlobalDocument(relativePath: "index.json") {
@@ -912,6 +912,54 @@ export const LayoutQueryFragmentFragmentDoc = gql`
         font
         darkMode
       }
+    }
+  }
+}
+    `;
+export const PagesPartsFragmentDoc = gql`
+    fragment PagesParts on Pages {
+  blocks {
+    __typename
+    ... on PagesBlocksHero {
+      tagline
+      headline
+      text
+      actions {
+        __typename
+        label
+        type
+        icon
+        link
+      }
+      image {
+        __typename
+        src
+        alt
+      }
+      color
+    }
+    ... on PagesBlocksFeatures {
+      items {
+        __typename
+        icon {
+          __typename
+          color
+          style
+          name
+        }
+        title
+        text
+      }
+      color
+    }
+    ... on PagesBlocksContent {
+      body
+      color
+    }
+    ... on PagesBlocksTestimonial {
+      quote
+      author
+      color
     }
   }
 }
@@ -973,54 +1021,6 @@ export const AuthorsPartsFragmentDoc = gql`
   avatar
 }
     `;
-export const PagesPartsFragmentDoc = gql`
-    fragment PagesParts on Pages {
-  blocks {
-    __typename
-    ... on PagesBlocksHero {
-      tagline
-      headline
-      text
-      actions {
-        __typename
-        label
-        type
-        icon
-        link
-      }
-      image {
-        __typename
-        src
-        alt
-      }
-      color
-    }
-    ... on PagesBlocksFeatures {
-      items {
-        __typename
-        icon {
-          __typename
-          color
-          style
-          name
-        }
-        title
-        text
-      }
-      color
-    }
-    ... on PagesBlocksContent {
-      body
-      color
-    }
-    ... on PagesBlocksTestimonial {
-      quote
-      author
-      color
-    }
-  }
-}
-    `;
 export const PageQueryDocument = gql`
     query PageQuery {
   ...LayoutQueryFragment
@@ -1077,6 +1077,47 @@ export const BlogPostQueryDocument = gql`
 }
     ${LayoutQueryFragmentFragmentDoc}
 ${PostsPartsFragmentDoc}`;
+export const GetPagesDocumentDocument = gql`
+    query getPagesDocument($relativePath: String!) {
+  getPagesDocument(relativePath: $relativePath) {
+    sys {
+      filename
+      basename
+      breadcrumbs
+      path
+      relativePath
+      extension
+    }
+    id
+    data {
+      ...PagesParts
+    }
+  }
+}
+    ${PagesPartsFragmentDoc}`;
+export const GetPagesListDocument = gql`
+    query getPagesList {
+  getPagesList {
+    totalCount
+    edges {
+      node {
+        id
+        sys {
+          filename
+          basename
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        data {
+          ...PagesParts
+        }
+      }
+    }
+  }
+}
+    ${PagesPartsFragmentDoc}`;
 export const GetPostsDocumentDocument = gql`
     query getPostsDocument($relativePath: String!) {
   getPostsDocument(relativePath: $relativePath) {
@@ -1200,47 +1241,6 @@ export const GetAuthorsListDocument = gql`
   }
 }
     ${AuthorsPartsFragmentDoc}`;
-export const GetPagesDocumentDocument = gql`
-    query getPagesDocument($relativePath: String!) {
-  getPagesDocument(relativePath: $relativePath) {
-    sys {
-      filename
-      basename
-      breadcrumbs
-      path
-      relativePath
-      extension
-    }
-    id
-    data {
-      ...PagesParts
-    }
-  }
-}
-    ${PagesPartsFragmentDoc}`;
-export const GetPagesListDocument = gql`
-    query getPagesList {
-  getPagesList {
-    totalCount
-    edges {
-      node {
-        id
-        sys {
-          filename
-          basename
-          breadcrumbs
-          path
-          relativePath
-          extension
-        }
-        data {
-          ...PagesParts
-        }
-      }
-    }
-  }
-}
-    ${PagesPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -1252,6 +1252,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     BlogPostQuery(variables: BlogPostQueryQueryVariables, options?: C): Promise<{data: BlogPostQueryQuery, variables: BlogPostQueryQueryVariables, query: string}> {
         return requester<{data: BlogPostQueryQuery, variables: BlogPostQueryQueryVariables, query: string}, BlogPostQueryQueryVariables>(BlogPostQueryDocument, variables, options);
+      },
+    getPagesDocument(variables: GetPagesDocumentQueryVariables, options?: C): Promise<{data: GetPagesDocumentQuery, variables: GetPagesDocumentQueryVariables, query: string}> {
+        return requester<{data: GetPagesDocumentQuery, variables: GetPagesDocumentQueryVariables, query: string}, GetPagesDocumentQueryVariables>(GetPagesDocumentDocument, variables, options);
+      },
+    getPagesList(variables?: GetPagesListQueryVariables, options?: C): Promise<{data: GetPagesListQuery, variables: GetPagesListQueryVariables, query: string}> {
+        return requester<{data: GetPagesListQuery, variables: GetPagesListQueryVariables, query: string}, GetPagesListQueryVariables>(GetPagesListDocument, variables, options);
       },
     getPostsDocument(variables: GetPostsDocumentQueryVariables, options?: C): Promise<{data: GetPostsDocumentQuery, variables: GetPostsDocumentQueryVariables, query: string}> {
         return requester<{data: GetPostsDocumentQuery, variables: GetPostsDocumentQueryVariables, query: string}, GetPostsDocumentQueryVariables>(GetPostsDocumentDocument, variables, options);
@@ -1270,12 +1276,6 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     getAuthorsList(variables?: GetAuthorsListQueryVariables, options?: C): Promise<{data: GetAuthorsListQuery, variables: GetAuthorsListQueryVariables, query: string}> {
         return requester<{data: GetAuthorsListQuery, variables: GetAuthorsListQueryVariables, query: string}, GetAuthorsListQueryVariables>(GetAuthorsListDocument, variables, options);
-      },
-    getPagesDocument(variables: GetPagesDocumentQueryVariables, options?: C): Promise<{data: GetPagesDocumentQuery, variables: GetPagesDocumentQueryVariables, query: string}> {
-        return requester<{data: GetPagesDocumentQuery, variables: GetPagesDocumentQueryVariables, query: string}, GetPagesDocumentQueryVariables>(GetPagesDocumentDocument, variables, options);
-      },
-    getPagesList(variables?: GetPagesListQueryVariables, options?: C): Promise<{data: GetPagesListQuery, variables: GetPagesListQueryVariables, query: string}> {
-        return requester<{data: GetPagesListQuery, variables: GetPagesListQueryVariables, query: string}, GetPagesListQueryVariables>(GetPagesListDocument, variables, options);
       }
     };
   }

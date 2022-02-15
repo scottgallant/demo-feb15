@@ -388,6 +388,28 @@ const heroBlockSchema: TinaTemplate = {
 export default defineSchema({
   collections: [
     {
+      label: "Pages",
+      name: "pages",
+      path: "content/pages",
+      fields: [
+        {
+          type: "object",
+          list: true,
+          name: "blocks",
+          label: "Sections",
+          ui: {
+            visualSelector: true,
+          },
+          templates: [
+            heroBlockSchema,
+            featureBlockShema,
+            contentBlockSchema,
+            testimonialBlockSchema,
+          ],
+        },
+      ],
+    },
+    {
       label: "Blog Posts",
       name: "posts",
       path: "content/posts",
@@ -705,27 +727,6 @@ export default defineSchema({
         },
       ],
     },
-    {
-      label: "Pages",
-      name: "pages",
-      path: "content/pages",
-      fields: [
-        {
-          type: "object",
-          list: true,
-          name: "blocks",
-          label: "Sections",
-          ui: {
-            visualSelector: true,
-          },
-          templates: [
-            heroBlockSchema,
-            featureBlockShema,
-            contentBlockSchema,
-            testimonialBlockSchema,
-          ],
-        },
-      ],
-    },
+
   ],
 });
