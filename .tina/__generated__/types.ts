@@ -280,8 +280,8 @@ export type DatetimeFilter = {
 };
 
 export type PostsFilter = {
-  _body?: InputMaybe<Posts_BodyFilter>;
   title?: InputMaybe<StringFilter>;
+  _body?: InputMaybe<Posts_BodyFilter>;
   author?: InputMaybe<PostsAuthorFilter>;
   date?: InputMaybe<DatetimeFilter>;
   heroImg?: InputMaybe<ImageFilter>;
@@ -465,8 +465,8 @@ export type PostsAuthorDocument = AuthorsDocument;
 
 export type Posts = {
   __typename?: 'Posts';
-  _body?: Maybe<Scalars['JSON']>;
   title?: Maybe<Scalars['String']>;
+  _body?: Maybe<Scalars['JSON']>;
   author?: Maybe<PostsAuthorDocument>;
   date?: Maybe<Scalars['String']>;
   heroImg?: Maybe<Scalars['String']>;
@@ -749,8 +749,8 @@ export type PagesMutation = {
 };
 
 export type PostsMutation = {
-  _body?: InputMaybe<Scalars['JSON']>;
   title?: InputMaybe<Scalars['String']>;
+  _body?: InputMaybe<Scalars['JSON']>;
   author?: InputMaybe<Scalars['String']>;
   date?: InputMaybe<Scalars['String']>;
   heroImg?: InputMaybe<Scalars['String']>;
@@ -823,11 +823,11 @@ export type BlogPostQueryQueryVariables = Exact<{
 }>;
 
 
-export type BlogPostQueryQuery = { __typename?: 'Query', getPostsDocument: { __typename?: 'PostsDocument', data: { __typename?: 'Posts', _body?: any | null, title?: string | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string, data: { __typename?: 'Authors', name?: string | null, avatar?: string | null } } | null } }, getGlobalDocument: { __typename?: 'GlobalDocument', data: { __typename?: 'Global', header?: { __typename?: 'GlobalHeader', color?: string | null, icon?: { __typename?: 'GlobalHeaderIcon', name?: string | null, color?: string | null, style?: string | null } | null, nav?: Array<{ __typename?: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename?: 'GlobalFooter', color?: string | null, social?: { __typename?: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename?: 'GlobalTheme', color?: string | null, icon?: string | null, font?: string | null, darkMode?: string | null } | null } } };
+export type BlogPostQueryQuery = { __typename?: 'Query', getPostsDocument: { __typename?: 'PostsDocument', data: { __typename?: 'Posts', title?: string | null, _body?: any | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string, data: { __typename?: 'Authors', name?: string | null, avatar?: string | null } } | null } }, getGlobalDocument: { __typename?: 'GlobalDocument', data: { __typename?: 'Global', header?: { __typename?: 'GlobalHeader', color?: string | null, icon?: { __typename?: 'GlobalHeaderIcon', name?: string | null, color?: string | null, style?: string | null } | null, nav?: Array<{ __typename?: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename?: 'GlobalFooter', color?: string | null, social?: { __typename?: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename?: 'GlobalTheme', color?: string | null, icon?: string | null, font?: string | null, darkMode?: string | null } | null } } };
 
 export type PagesPartsFragment = { __typename?: 'Pages', blocks?: Array<{ __typename: 'PagesBlocksHero', tagline?: string | null, headline?: string | null, text?: string | null, color?: string | null, actions?: Array<{ __typename: 'PagesBlocksHeroActions', label?: string | null, type?: string | null, icon?: boolean | null, link?: string | null } | null> | null, image?: { __typename: 'PagesBlocksHeroImage', src?: string | null, alt?: string | null } | null } | { __typename: 'PagesBlocksFeatures', color?: string | null, items?: Array<{ __typename: 'PagesBlocksFeaturesItems', title?: string | null, text?: string | null, icon?: { __typename: 'PagesBlocksFeaturesItemsIcon', color?: string | null, style?: string | null, name?: string | null } | null } | null> | null } | { __typename: 'PagesBlocksContent', body?: string | null, color?: string | null } | { __typename: 'PagesBlocksTestimonial', quote?: string | null, author?: string | null, color?: string | null } | null> | null };
 
-export type PostsPartsFragment = { __typename?: 'Posts', _body?: any | null, title?: string | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null };
+export type PostsPartsFragment = { __typename?: 'Posts', title?: string | null, _body?: any | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null };
 
 export type GlobalPartsFragment = { __typename?: 'Global', header?: { __typename: 'GlobalHeader', color?: string | null, icon?: { __typename: 'GlobalHeaderIcon', color?: string | null, style?: string | null, name?: string | null } | null, nav?: Array<{ __typename: 'GlobalHeaderNav', href?: string | null, label?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', color?: string | null, social?: { __typename: 'GlobalFooterSocial', facebook?: string | null, twitter?: string | null, instagram?: string | null, github?: string | null } | null } | null, theme?: { __typename: 'GlobalTheme', color?: string | null, font?: string | null, icon?: string | null, darkMode?: string | null } | null };
 
@@ -850,12 +850,12 @@ export type GetPostsDocumentQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsDocumentQuery = { __typename?: 'Query', getPostsDocument: { __typename?: 'PostsDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Posts', _body?: any | null, title?: string | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null } } };
+export type GetPostsDocumentQuery = { __typename?: 'Query', getPostsDocument: { __typename?: 'PostsDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Posts', title?: string | null, _body?: any | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null } } };
 
 export type GetPostsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsListQuery = { __typename?: 'Query', getPostsList: { __typename?: 'PostsConnection', totalCount: number, edges?: Array<{ __typename?: 'PostsConnectionEdges', node?: { __typename?: 'PostsDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Posts', _body?: any | null, title?: string | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null } } | null } | null> | null } };
+export type GetPostsListQuery = { __typename?: 'Query', getPostsList: { __typename?: 'PostsConnection', totalCount: number, edges?: Array<{ __typename?: 'PostsConnectionEdges', node?: { __typename?: 'PostsDocument', id: string, sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, data: { __typename?: 'Posts', title?: string | null, _body?: any | null, date?: string | null, heroImg?: string | null, excerpt?: string | null, author?: { __typename?: 'AuthorsDocument', id: string } | null } } | null } | null> | null } };
 
 export type GetGlobalDocumentQueryVariables = Exact<{
   relativePath: Scalars['String'];
@@ -966,8 +966,8 @@ export const PagesPartsFragmentDoc = gql`
     `;
 export const PostsPartsFragmentDoc = gql`
     fragment PostsParts on Posts {
-  _body
   title
+  _body
   author {
     ... on Document {
       id

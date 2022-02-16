@@ -416,6 +416,11 @@ export default defineSchema({
       format: "mdx",
       fields: [
         {
+          type: "string",
+          label: "Title",
+          name: "title",
+        },
+        {
           type: "rich-text",
           label: "Body",
           name: "_body",
@@ -483,11 +488,6 @@ export default defineSchema({
             },
           ],
           isBody: true,
-        },
-        {
-          type: "string",
-          label: "Title",
-          name: "title",
         },
         {
           type: "reference",

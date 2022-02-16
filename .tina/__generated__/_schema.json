@@ -671,6 +671,15 @@
       "format": "mdx",
       "fields": [
         {
+          "type": "string",
+          "label": "Title",
+          "name": "title",
+          "namespace": [
+            "posts",
+            "title"
+          ]
+        },
+        {
           "type": "rich-text",
           "label": "Body",
           "name": "_body",
@@ -802,15 +811,6 @@
           "namespace": [
             "posts",
             "_body"
-          ]
-        },
-        {
-          "type": "string",
-          "label": "Title",
-          "name": "title",
-          "namespace": [
-            "posts",
-            "title"
           ]
         },
         {

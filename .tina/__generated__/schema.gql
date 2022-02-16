@@ -180,8 +180,8 @@ input DatetimeFilter {
 }
 
 input PostsFilter {
-  _body: Posts_bodyFilter
   title: StringFilter
+  _body: Posts_bodyFilter
   author: PostsAuthorFilter
   date: DatetimeFilter
   heroImg: ImageFilter
@@ -340,8 +340,8 @@ type PagesConnection implements Connection {
 union PostsAuthorDocument = AuthorsDocument
 
 type Posts {
-  _body: JSON
   title: String
+  _body: JSON
   author: PostsAuthorDocument
   date: String
   heroImg: String
@@ -537,8 +537,8 @@ input PagesMutation {
 }
 
 input PostsMutation {
-  _body: JSON
   title: String
+  _body: JSON
   author: String
   date: String
   heroImg: String
