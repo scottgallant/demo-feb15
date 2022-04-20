@@ -22,6 +22,10 @@ blocks:
       alt: Tina
     color: default
     _template: hero
+  - quote: hi
+    author: Phil Karlton
+    color: primary
+    _template: testimonial
   - quote: Hello world
     author: Scott
     color: primary
